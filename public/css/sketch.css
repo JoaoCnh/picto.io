@@ -1,0 +1,7 @@
+#picto {
+  border: 1px solid;
+}
+
+#picto:hover {
+  cursor: pointer;
+}
