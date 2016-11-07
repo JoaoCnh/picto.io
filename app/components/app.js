@@ -11,14 +11,6 @@ import { setUsername } from '../actions/appActions';
   };
 })
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    componentDidMount() {
-        if (this.props.username != null) {
-            sketch.init();
-        }
-    }
     _setUsername(username) {
         if (username === false) return false;
 
@@ -30,13 +22,6 @@ class App extends React.Component {
         this.props.dispatch(setUsername(username));
         swal("Nice!", "Welcome " + username, "success");
     }
-    _clearCanvas(event) {
-        event.preventDefault();
-        sketch.clearCanvas();
-    }
-    _setColor(color) {
-        sketch.setColor(color.hex);
-    };
     render() {
         if (this.props.username == null) {
             swal({

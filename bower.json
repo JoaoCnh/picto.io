@@ -13,5 +13,9 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "MDBootstrap": "^4.2.0",
+    "sweetalert": "^1.1.3"
+  }
 }

@@ -17,6 +17,33 @@ export default function reducer(state = {
     ],
 }, action) {
     switch (action.type) {
+        case "INIT": {
+          return {...state, canvas: action.payload.canvas, context: action.payload.context};
+        }
+
+        case "RESET_CANVAS": {
+            return {...state, clickX: [], clickY: [], clickDrag: [], clickColor: [], clickSize: []};
+        }
+
+        case "SET_COLOR": {
+            return {...state, currentColor: action.payload};
+        }
+
+        case "DRAG":
+        case "PRESS": {
+            return {...state, paint: true,
+                clickX: [...state.clickX, action.payload.mouseX],
+                clickY: [...state.clickY, action.payload.mouseY],
+                clickDrag: [...state.clickDrag, action.payload.dragging],
+                clickColor: [...state.clickColor, state.currentColor],
+                clickSize: [...state.clickSize, state.currentSize],
+            };
+        }
+
+        case "CANCEL":
+        case "RELEASE": {
+            return {...state, paint: action.payload};
+        }
     }
 
     return state;
