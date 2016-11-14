@@ -21,6 +21,15 @@
     height: 405px;
     overflow: scroll;
 
+    .chat-message-appear {
+        opacity: 0.01;
+
+        &.chat-message-appear-active {
+            opacity: 1;
+            transition: opacity .5s ease-in;
+        }
+    }
+
     .chat-message {
         clear: both;
         overflow: hidden;

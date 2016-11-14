@@ -9,20 +9,27 @@ class ChatMessage extends React.Component {
         let direction = this.props.isAuthor ? 'right' : 'left';
 
         return (
-            <li className={`chat-message ${direction}`}>
-                <div className="avatar"></div>
-                <div className="text-wrapper">
-                    <div className="text">
-                        <strong>{this.props.message.author} says:</strong>
-                        {' '}
-                        {ReactEmoji.emojify(this.props.message.content)}
+            <ReactCSSTransitionGroup
+                transitionName="chat-message"
+                transitionAppear={true}
+                transitionAppearTimeout={500}
+                transitionEnter={false}
+                transitionLeave={false}>
+                <li className={`chat-message ${direction}`}>
+                    <div className="avatar"></div>
+                    <div className="text-wrapper">
+                        <div className="text">
+                            <strong>{this.props.message.author} says:</strong>
+                            {' '}
+                            {ReactEmoji.emojify(this.props.message.content)}
 
-                        <span className="pull-right">
-                            <Timestamp time={this.props.message.time} />
-                        </span>
+                            <span className="pull-right">
+                                <Timestamp time={this.props.message.time} />
+                            </span>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            </ReactCSSTransitionGroup>
         );
     }
 }
