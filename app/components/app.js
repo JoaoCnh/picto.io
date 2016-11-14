@@ -1,14 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Navbar from './layout/Navbar';
 import Picto from './Picto';
+import Chat from './Chat';
 
-import { setUsername } from '../actions/appActions';
+import { init, setUsername } from '../actions/appActions';
 
 @connect((store) => {
-  return {
-    username: store.app.username,
-  };
+    return {
+        socket: store.app.socket,
+        username: store.app.username,
+        currentUsers: store.app.currentUsers,
+    };
 })
 class App extends React.Component {
     _setUsername(username) {
@@ -20,18 +24,23 @@ class App extends React.Component {
         }
 
         this.props.dispatch(setUsername(username));
-        swal("Nice!", "Welcome " + username, "success");
+        swal("Nice!", `Welcome ${username}`, "success");
+    }
+    componentWillMount() {
+        if (localStorage.getItem('__pictoUser')) {
+            this.props.dispatch(init());
+        }
     }
     render() {
         if (this.props.username == null) {
             swal({
-              title: "Hi there! You're new!",
-              text: "Write your username below:",
-              type: "input",
-              showCancelButton: false,
-              closeOnConfirm: false,
-              animation: "slide-from-top",
-              inputPlaceholder: "Username"
+                title: "Hi there! You're new!",
+                text: "Write your username below:",
+                type: "input",
+                showCancelButton: false,
+                closeOnConfirm: false,
+                animation: "slide-from-top",
+                inputPlaceholder: "Username"
             }, this._setUsername.bind(this));
 
             return (
@@ -40,23 +49,18 @@ class App extends React.Component {
         }
 
         return (
-            <div className="row">
-                <div className="col s2">
-                </div>
+            <div>
+                <Navbar username={this.props.username}
+                    currentUsersNumber={this.props.currentUsers.length} />
 
-                <div className="col s5">
-                  <ul className="collection">
-                  </ul>
-                  <form>
-                    <div className="input-field col s10">
-                      <i className="material-icons prefix">send</i>
-                      <input id="message" type="text" className="validate" />
-                      <label htmlFor="message">Message</label>
+                <div className="row">
+                    <div className="col-md-6">
+                        <Picto />
                     </div>
-                  </form>
+                    <div className="col-md-6">
+                        <Chat currentUser={this.props.currentUser} />
+                    </div>
                 </div>
-
-                <Picto />
             </div>
         );
     }
