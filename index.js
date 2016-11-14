@@ -24,7 +24,7 @@ app.get('/', function(req, res) {
 });
 
 io.on('connection', function(socket) {
-    let socketUser = socket.handshake.query.username;
+    var socketUser = socket.handshake.query.username;
     console.log(socketUser + ' connected');
 
     socket.on('disconnect', function() {
