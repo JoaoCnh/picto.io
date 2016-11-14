@@ -6,7 +6,6 @@ var _ = require('lodash');
 
 // Quando colocar o gulp apenas será o public
 app.use(express.static('public'));
-app.use(express.static('bower_components'));
 
 // API endpoint para retornar que utilizadores estão conectados de momento
 app.get('/activeUsers', function (req, res) {
