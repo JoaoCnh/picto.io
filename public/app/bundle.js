@@ -59257,7 +59257,8 @@
 	    _createClass(PictoTool, [{
 	        key: '_handleClick',
 	        value: function _handleClick(event) {
-	            this.props.clickHandler(event.target.id);
+	            event.stopPropagation();
+	            this.props.clickHandler(event.target.dataset.value);
 	        }
 	    }, {
 	        key: 'render',
@@ -59268,11 +59269,14 @@
 
 	            return _react2.default.createElement(
 	                'label',
-	                { className: currentItemCssClass, title: this.props.title },
-	                _react2.default.createElement('input', { id: this.props.title, type: 'radio', autoComplete: 'off',
-	                    defaultChecked: isCurrentItem,
+	                { 'data-value': this.props.title, className: currentItemCssClass,
+	                    title: this.props.title, onClick: this._handleClick.bind(this) },
+	                _react2.default.createElement('input', { type: 'radio', autoComplete: 'off',
+	                    defaultChecked: isCurrentItem, 'data-value': this.props.title,
 	                    onClick: this._handleClick.bind(this) }),
-	                _react2.default.createElement('i', { className: 'fa fa-' + this.props.icon })
+	                _react2.default.createElement('i', { className: 'fa fa-' + this.props.icon,
+	                    'data-value': this.props.title,
+	                    onClick: this._handleClick.bind(this) })
 	            );
 	        }
 	    }]);

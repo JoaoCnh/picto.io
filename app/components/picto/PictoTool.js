@@ -2,7 +2,8 @@ import React from 'react';
 
 class PictoTool extends React.Component {
     _handleClick(event) {
-        this.props.clickHandler(event.target.id);
+        event.stopPropagation();
+        this.props.clickHandler(event.target.dataset.value);
     }
     render() {
         let isCurrentItem = this.props.title === this.props.currentItem;
@@ -11,11 +12,14 @@ class PictoTool extends React.Component {
             : `btn picto-tool ${extraCss}`;
 
         return (
-            <label className={currentItemCssClass} title={this.props.title}>
-                <input id={this.props.title} type="radio" autoComplete="off"
-                    defaultChecked={isCurrentItem}
+            <label data-value={this.props.title} className={currentItemCssClass}
+                title={this.props.title} onClick={this._handleClick.bind(this)}>
+                <input type="radio" autoComplete="off"
+                    defaultChecked={isCurrentItem} data-value={this.props.title}
                     onClick={this._handleClick.bind(this)} />
-                <i className={`fa fa-${this.props.icon}`}></i>
+                <i className={`fa fa-${this.props.icon}`}
+                    data-value={this.props.title}
+                    onClick={this._handleClick.bind(this)}></i>
             </label>
         );
     }
