@@ -73,7 +73,7 @@ function initSocket(dispatch, params) {
     });
 
     socket.on('chat message', (message) => {
-        dispatch({type: "SEND_MESSAGE", payload: message});
+        dispatch({type: "NEW_MESSAGE", payload: message});
     });
 
     return socket;

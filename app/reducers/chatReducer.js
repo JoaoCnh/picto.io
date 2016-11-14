@@ -29,6 +29,13 @@ export default function reducer(state = {
             };
         }
 
+        case "NEW_MESSAGE": {
+            return {
+                ...state,
+                messages: [...state.messages, action.payload],
+            };
+        }
+
         case "MESSAGE_ERROR": {
             return {
                 ...state,

@@ -29337,6 +29337,13 @@
 	                });
 	            }
 
+	        case "NEW_MESSAGE":
+	            {
+	                return _extends({}, state, {
+	                    messages: [].concat(_toConsumableArray(state.messages), [action.payload])
+	                });
+	            }
+
 	        case "MESSAGE_ERROR":
 	            {
 	                return _extends({}, state, {
@@ -61321,7 +61328,7 @@
 	    });
 
 	    socket.on('chat message', function (message) {
-	        dispatch({ type: "SEND_MESSAGE", payload: message });
+	        dispatch({ type: "NEW_MESSAGE", payload: message });
 	    });
 
 	    return socket;
