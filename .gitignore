@@ -43,7 +43,3 @@ jspm_packages
 
 # Output of 'npm pack'
 *.tgz
-
-# app files and folders
-
-public/*
