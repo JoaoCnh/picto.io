@@ -1,0 +1,39 @@
+#picto {
+    border: 1px solid;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.card-footer {
+    padding: 0;
+    border-top: 0;
+}
+
+.picto-tool {
+    width: 86px;
+    height: 83px;
+    background-color: $color-primary;
+
+    &.active {
+        background-color: $color-primary-active;
+    }
+
+    .picto-tool-pen,
+    .picto-tool-eraser {
+        margin-top: 25px;
+    }
+
+    .picto-size-small {
+        margin-top: 25px;
+    }
+
+    .picto-size-normal {
+        margin-top: 20px;
+    }
+
+    .picto-size-large {
+        margin-top: 15px;
+    }
+}
