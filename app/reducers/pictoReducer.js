@@ -1,6 +1,4 @@
 export default function reducer(state = {
-    canvas: null,
-    context: null,
     paint: false,
     clickX: new Array(),
     clickY: new Array(),
@@ -9,6 +7,7 @@ export default function reducer(state = {
     clickSize: new Array(),
     currentColor: "#000",
     currentSize: "normal",
+    currentTool: "pen",
     availableColors: [
         "#000000",
         "#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3",
@@ -17,16 +16,12 @@ export default function reducer(state = {
     ],
 }, action) {
     switch (action.type) {
-        case "INIT": {
-          return {...state, canvas: action.payload.canvas, context: action.payload.context};
-        }
-
         case "RESET_CANVAS": {
             return {...state, clickX: [], clickY: [], clickDrag: [], clickColor: [], clickSize: []};
         }
 
         case "SET_COLOR": {
-            return {...state, currentColor: action.payload};
+            return {...state, currentColor: action.payload, currentTool: 'pen'};
         }
 
         case "DRAG":
@@ -35,7 +30,10 @@ export default function reducer(state = {
                 clickX: [...state.clickX, action.payload.mouseX],
                 clickY: [...state.clickY, action.payload.mouseY],
                 clickDrag: [...state.clickDrag, action.payload.dragging],
-                clickColor: [...state.clickColor, state.currentColor],
+                clickColor: [
+                    ...state.clickColor,
+                    state.currentTool === 'eraser' ? '#fff' : state.currentColor
+                ],
                 clickSize: [...state.clickSize, state.currentSize],
             };
         }
@@ -43,6 +41,32 @@ export default function reducer(state = {
         case "CANCEL":
         case "RELEASE": {
             return {...state, paint: action.payload};
+        }
+
+        case "CHANGE_TOOL": {
+            return {
+                ...state,
+                currentTool: action.payload,
+            };
+        }
+
+        case "CHANGE_SIZE": {
+            return {
+                ...state,
+                currentSize: action.payload,
+            };
+        }
+
+        case "BROAD_UPDATE": {
+            return {
+                ...state,
+                paint: action.payload.paint,
+                clickX: action.payload.clickX,
+                clickY: action.payload.clickY,
+                clickDrag: action.payload.clickDrag,
+                clickColor: action.payload.clickColor,
+                clickSize: action.payload.clickSize,
+            };
         }
     }
 
