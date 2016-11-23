@@ -4,11 +4,13 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var _ = require('lodash');
 
-// Quando colocar o gulp apenas será o public
 app.use(express.static('public'));
 
-// API endpoint para retornar que utilizadores estão conectados de momento
-app.get('/activeUsers', function (req, res) {
+/*
+ * GET: /connections
+ * Returns all connected users as JSON
+ */
+app.get('/connections', function (req, res) {
     var socketIdsArray = Object.keys(io.sockets.connected);
 
     var connectedSockets = _.map(socketIdsArray, function (socketId) {
@@ -18,9 +20,7 @@ app.get('/activeUsers', function (req, res) {
     res.json(connectedSockets);
 });
 
-app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/public/index.html');
-});
+app.use(require('./server/controllers'));
 
 io.on('connection', function(socket) {
     var socketUser = socket.handshake.query.username;
