@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Login from './auth/Login';
 import Navbar from './layout/Navbar';
 import Picto from './Picto';
 import Chat from './Chat';
@@ -32,20 +33,10 @@ class App extends React.Component {
         }
     }
     render() {
-        if (this.props.username == null) {
-            swal({
-                title: "Hi there! You're new!",
-                text: "Write your username below:",
-                type: "input",
-                showCancelButton: false,
-                closeOnConfirm: false,
-                animation: "slide-from-top",
-                inputPlaceholder: "Username"
-            }, this._setUsername.bind(this));
+        console.log('render app');
 
-            return (
-                <div />
-            );
+        if (!this.props.username) {
+            return (<Login />);
         }
 
         return (

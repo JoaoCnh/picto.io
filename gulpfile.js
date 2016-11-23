@@ -19,8 +19,8 @@ gulp.task('vendor-styles', function () {
     gulp.src([
         'bower_components/tether/dist/css/tether.min.css',
         'bower_components/bootstrap/dist/css/bootstrap.min.css',
-        'bower_components/MDBootstrap/css/mdb.min.css',
-        'bower_components/sweetalert/dist/sweetalert.css',
+        //'bower_components/MDBootstrap/css/mdb.min.css',
+        //'bower_components/sweetalert/dist/sweetalert.css',
         'bower_components/font-awesome/css/font-awesome.min.css',
     ])
     .pipe(concat('app.vendor.css'))

@@ -11,11 +11,16 @@ import {
 import store from './store';
 
 import App      from './app/components/App';
+import Login    from './app/components/auth/Login';
+import Register from './app/components/auth/Register';
 import Travolta from './app/components/Travolta';
 
 const router = (
   <Router history={hashHistory}>
-    <Route path="/" component={App} />
+    <Route path="/" component={App}>
+        <Route path="login" component={Login} />
+    </Route>
+    <Route path="/register" component={Register} />
     <Route path="*" component={Travolta} />
   </Router>
 );
