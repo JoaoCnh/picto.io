@@ -64,6 +64,14 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
+	var _Home = __webpack_require__(519);
+
+	var _Home2 = _interopRequireDefault(_Home);
+
+	var _Auth = __webpack_require__(520);
+
+	var _Auth2 = _interopRequireDefault(_Auth);
+
 	var _Login = __webpack_require__(270);
 
 	var _Login2 = _interopRequireDefault(_Login);
@@ -78,22 +86,29 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var indexRoute = localStorage.getItem('__pictoUser') ? _react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default }) : _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/auth/login' });
+
 	var router = _react2.default.createElement(
-	  _reactRouter.Router,
-	  { history: _reactRouter.hashHistory },
-	  _react2.default.createElement(
-	    _reactRouter.Route,
-	    { path: '/', component: _App2.default },
-	    _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _Login2.default })
-	  ),
-	  _react2.default.createElement(_reactRouter.Route, { path: '/register', component: _Register2.default }),
-	  _react2.default.createElement(_reactRouter.Route, { path: '*', component: _Travolta2.default })
+	    _reactRouter.Router,
+	    { history: _reactRouter.hashHistory },
+	    _react2.default.createElement(
+	        _reactRouter.Route,
+	        { path: '/', component: _App2.default },
+	        indexRoute
+	    ),
+	    _react2.default.createElement(
+	        _reactRouter.Route,
+	        { path: 'auth', component: _Auth2.default },
+	        _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _Login2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'register', component: _Register2.default })
+	    ),
+	    _react2.default.createElement(_reactRouter.Route, { path: '*', component: _Travolta2.default })
 	);
 
 	(0, _reactDom.render)(_react2.default.createElement(
-	  _reactRedux.Provider,
-	  { store: _store2.default },
-	  router
+	    _reactRedux.Provider,
+	    { store: _store2.default },
+	    router
 	), document.getElementById('picto-io'));
 
 /***/ },
@@ -29380,31 +29395,9 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _dec, _class;
-
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(172);
-
-	var _Login = __webpack_require__(270);
-
-	var _Login2 = _interopRequireDefault(_Login);
-
-	var _Navbar = __webpack_require__(272);
-
-	var _Navbar2 = _interopRequireDefault(_Navbar);
-
-	var _Picto = __webpack_require__(273);
-
-	var _Picto2 = _interopRequireDefault(_Picto);
-
-	var _Chat = __webpack_require__(500);
-
-	var _Chat2 = _interopRequireDefault(_Chat);
-
-	var _appActions = __webpack_require__(516);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29414,13 +29407,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var App = (_dec = (0, _reactRedux.connect)(function (store) {
-	    return {
-	        socket: store.app.socket,
-	        username: store.app.username,
-	        currentUsers: store.app.currentUsers
-	    };
-	}), _dec(_class = function (_React$Component) {
+	var App = function (_React$Component) {
 	    _inherits(App, _React$Component);
 
 	    function App() {
@@ -29430,59 +29417,20 @@
 	    }
 
 	    _createClass(App, [{
-	        key: '_setUsername',
-	        value: function _setUsername(username) {
-	            if (username === false) return false;
-
-	            if (username === "") {
-	                swal.showInputError("You must have a username!");
-	                return false;
-	            }
-
-	            this.props.dispatch((0, _appActions.setUsername)(username));
-	            swal("Nice!", 'Welcome ' + username, "success");
-	        }
-	    }, {
-	        key: 'componentWillMount',
-	        value: function componentWillMount() {
-	            if (localStorage.getItem('__pictoUser')) {
-	                this.props.dispatch((0, _appActions.init)());
-	            }
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
 	            console.log('render app');
-
-	            if (!this.props.username) {
-	                return _react2.default.createElement(_Login2.default, null);
-	            }
-
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_Navbar2.default, { username: this.props.username,
-	                    currentUsersNumber: this.props.currentUsers.length }),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'row' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'col-md-6' },
-	                        _react2.default.createElement(_Picto2.default, null)
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'col-md-6' },
-	                        _react2.default.createElement(_Chat2.default, { currentUser: this.props.currentUser })
-	                    )
-	                )
+	                this.props.children
 	            );
 	        }
 	    }]);
 
 	    return App;
-	}(_react2.default.Component)) || _class);
+	}(_react2.default.Component);
+
 	exports.default = App;
 
 /***/ },
@@ -29527,62 +29475,46 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'container' },
+	                null,
+	                _react2.default.createElement(
+	                    'h2',
+	                    null,
+	                    'Login'
+	                ),
+	                _react2.default.createElement('hr', { className: 'colorgraph' }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'form-group' },
+	                    _react2.default.createElement('input', { type: 'text', name: 'name', id: 'name',
+	                        className: 'form-control input-lg',
+	                        placeholder: 'Username' })
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'form-group' },
+	                    _react2.default.createElement('input', { type: 'password', name: 'password', id: 'password',
+	                        className: 'form-control input-lg',
+	                        placeholder: 'Password' })
+	                ),
+	                _react2.default.createElement('hr', { className: 'colorgraph' }),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'row' },
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'col-md-4 col-md-offset-4' },
+	                        { className: 'col-xs-6 col-sm-6 col-md-6' },
+	                        _react2.default.createElement('input', { type: 'submit',
+	                            className: 'btn btn-lg btn-success btn-block',
+	                            value: 'Sign In' })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'col-xs-6 col-sm-6 col-md-6' },
 	                        _react2.default.createElement(
-	                            'form',
-	                            { role: 'form' },
-	                            _react2.default.createElement(
-	                                'fieldset',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'h2',
-	                                    null,
-	                                    'Login'
-	                                ),
-	                                _react2.default.createElement('hr', { className: 'colorgraph' }),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'form-group' },
-	                                    _react2.default.createElement('input', { type: 'text', name: 'name', id: 'name',
-	                                        className: 'form-control input-lg',
-	                                        placeholder: 'Username' })
-	                                ),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'form-group' },
-	                                    _react2.default.createElement('input', { type: 'password', name: 'password', id: 'password',
-	                                        className: 'form-control input-lg',
-	                                        placeholder: 'Password' })
-	                                ),
-	                                _react2.default.createElement('hr', { className: 'colorgraph' }),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'row' },
-	                                    _react2.default.createElement(
-	                                        'div',
-	                                        { className: 'col-xs-6 col-sm-6 col-md-6' },
-	                                        _react2.default.createElement('input', { type: 'submit',
-	                                            className: 'btn btn-lg btn-success btn-block',
-	                                            value: 'Sign In' })
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'div',
-	                                        { className: 'col-xs-6 col-sm-6 col-md-6' },
-	                                        _react2.default.createElement(
-	                                            _reactRouter.Link,
-	                                            { to: '/register',
-	                                                className: 'btn btn-lg btn-primary btn-block' },
-	                                            'Register'
-	                                        )
-	                                    )
-	                                )
-	                            )
+	                            _reactRouter.Link,
+	                            { to: '/auth/register',
+	                                className: 'btn btn-lg btn-primary btn-block' },
+	                            'Register'
 	                        )
 	                    )
 	                )
@@ -61594,7 +61526,15 @@
 	    _createClass(Register, [{
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement('div', null);
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h2',
+	                    null,
+	                    'Register'
+	                )
+	            );
 	        }
 	    }]);
 
@@ -61602,6 +61542,178 @@
 	}(_react2.default.Component);
 
 	exports.default = Register;
+
+/***/ },
+/* 519 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(172);
+
+	var _Navbar = __webpack_require__(272);
+
+	var _Navbar2 = _interopRequireDefault(_Navbar);
+
+	var _Picto = __webpack_require__(273);
+
+	var _Picto2 = _interopRequireDefault(_Picto);
+
+	var _Chat = __webpack_require__(500);
+
+	var _Chat2 = _interopRequireDefault(_Chat);
+
+	var _appActions = __webpack_require__(516);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Home = (_dec = (0, _reactRedux.connect)(function (store) {
+	    return {
+	        socket: store.app.socket,
+	        username: store.app.username,
+	        currentUsers: store.app.currentUsers
+	    };
+	}), _dec(_class = function (_React$Component) {
+	    _inherits(Home, _React$Component);
+
+	    function Home() {
+	        _classCallCheck(this, Home);
+
+	        return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
+	    }
+
+	    _createClass(Home, [{
+	        key: '_setUsername',
+	        value: function _setUsername(username) {
+	            if (username === false) return false;
+
+	            if (username === "") {
+	                swal.showInputError("You must have a username!");
+	                return false;
+	            }
+
+	            this.props.dispatch((0, _appActions.setUsername)(username));
+	            swal("Nice!", 'Welcome ' + username, "success");
+	        }
+	    }, {
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
+	            if (localStorage.getItem('__pictoUser')) {
+	                this.props.dispatch((0, _appActions.init)());
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(_Navbar2.default, { username: this.props.username,
+	                    currentUsersNumber: this.props.currentUsers.length }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'row' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'col-md-6' },
+	                        _react2.default.createElement(_Picto2.default, null)
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'col-md-6' },
+	                        _react2.default.createElement(_Chat2.default, { currentUser: this.props.currentUser })
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Home;
+	}(_react2.default.Component)) || _class);
+	exports.default = Home;
+
+/***/ },
+/* 520 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Auth = function (_React$Component) {
+	    _inherits(Auth, _React$Component);
+
+	    function Auth() {
+	        _classCallCheck(this, Auth);
+
+	        return _possibleConstructorReturn(this, (Auth.__proto__ || Object.getPrototypeOf(Auth)).apply(this, arguments));
+	    }
+
+	    _createClass(Auth, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "container" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "row" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "col-md-4 col-md-offset-4" },
+	                        _react2.default.createElement(
+	                            "form",
+	                            { role: "form" },
+	                            _react2.default.createElement(
+	                                "fieldset",
+	                                null,
+	                                this.props.children
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Auth;
+	}(_react2.default.Component);
+
+	exports.default = Auth;
 
 /***/ }
 /******/ ]);

@@ -3,7 +3,9 @@ import React from 'react';
 class Register extends React.Component {
     render() {
         return (
-            <div />
+            <div>
+                <h2>Register</h2>
+            </div>
         );
     }
 }
