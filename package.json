@@ -55,7 +55,7 @@
     "gulp-concat": "^2.6.1",
     "html-webpack-plugin": "^2.24.1",
     "json-loader": "^0.5.4",
-    "node-sass": "^3.11.1",
+    "node-sass": "^7.0.0",
     "postcss-loader": "^1.1.0",
     "react-addons-test-utils": "^15.3.2",
     "redux-devtools": "^3.3.1",
